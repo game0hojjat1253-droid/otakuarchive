@@ -1,0 +1,1003 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#101116">
+<meta name="description" content="آرشیو شخصی انیمه، مانگا، فیلم و سریال">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="manifest.webmanifest">
+<script src="config.js"></script>
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<title>Otaku Archive</title>
+<style>
+:root{color-scheme:dark;--bg:#101116;--panel:#191b23;--panel2:#222531;--line:#303342;--muted:#9da1b1;--text:#f4f3f8;--accent:#aa91ff;--accent2:#7858df;--green:#6dd8a5;--red:#ff8a8a}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;padding-bottom:calc(82px + env(safe-area-inset-bottom))}
+button{font:inherit;color:inherit;cursor:pointer}
+header{padding:calc(20px + env(safe-area-inset-top)) 17px 14px;background:linear-gradient(145deg,#29203e,#101116 75%)}
+.top{display:flex;justify-content:space-between;align-items:center}.brand{font-size:21px;font-weight:900;letter-spacing:.3px}.brand span{color:var(--accent)}.sub{color:var(--muted);font-size:12px;margin-top:3px}.avatar{background:#33284f;border-radius:14px;width:42px;height:42px;display:grid;place-items:center;color:#e3d9ff;font-size:20px}
+main{max-width:780px;margin:auto;padding:14px 15px}.hidden{display:none!important}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin-top:8px}.stat{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:13px}.muted{font-size:12px;color:var(--muted)}.num{font-size:25px;font-weight:850;margin-top:3px}
+.head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:21px 2px 11px}.head h2{font-size:16px;margin:0}.head .row{display:flex;gap:6px}
+.btn{background:var(--accent2);border:0;color:#fff;padding:11px 14px;border-radius:12px;font-weight:750}.btn.alt{background:var(--panel2);border:1px solid var(--line);color:var(--text)}.btn.danger{background:#3a2227;border:1px solid #6a3139;color:var(--red)}.btn.sm{padding:8px 10px;font-size:12px}.btn:disabled{opacity:.5}
+.searchrow{display:flex;gap:8px}.search{width:100%;background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:13px;color:var(--text);font:inherit;font-size:16px;min-width:0}
+.chips{display:flex;gap:7px;overflow:auto;padding:10px 0;scrollbar-width:none}.chips::-webkit-scrollbar{display:none}.chip{white-space:nowrap;background:var(--panel);border:1px solid var(--line);color:var(--muted);border-radius:30px;padding:8px 12px;font-size:12px}.chip.active{background:#33284f;border-color:#725bb4;color:#e8e0ff}
+.cards{display:grid;gap:10px}.item{display:flex;gap:12px;align-items:center;background:var(--panel);border:1px solid var(--line);padding:12px;border-radius:15px;cursor:pointer}.item:focus-visible,.result:focus-visible{outline:2px solid var(--accent)}
+.poster{width:60px;height:82px;flex:0 0 60px;object-fit:cover;border-radius:9px;background:#292b38}.poster.placeholder{display:grid;place-items:center;color:#cfc2ff;font-size:22px}
+.info{flex:1;min-width:0}.title{font-size:14px;font-weight:800;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.meta{font-size:11px;color:var(--muted);margin-top:5px;line-height:1.6}
+.side{display:grid;gap:7px;justify-items:end}.rating{font-size:12px;color:#f4ce7a;white-space:nowrap;font-weight:800}
+.plus{background:#33284f;border:1px solid #5a47a0;color:#e8e0ff;border-radius:10px;padding:6px 10px;font-size:12px;font-weight:800;white-space:nowrap}.plus:active{transform:scale(.95)}
+.item,.result{content-visibility:auto}.item{contain-intrinsic-size:auto 108px}.result{contain-intrinsic-size:auto 300px}.more{width:100%}.avatar{border:0;cursor:pointer;font-size:17px}.avatar.warn{background:#4a2a2a;color:#ffb4b4}.avatar.busy{animation:spin 1.2s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}.cfrow{border-top:1px solid var(--line);padding:10px 0;font-size:12px;line-height:1.8}.cfrow .two{margin-top:6px}.cfrow b{font-size:13px}.snaprow{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 0;border-top:1px solid var(--line);font-size:12px;line-height:1.7}.snaprow .muted{font-size:11px}.result{position:relative}.reason{font-size:10px;color:var(--accent);margin-top:4px;line-height:1.6}.xbtn{position:absolute;top:6px;left:6px;z-index:1;background:#000a;border:0;color:#fff;border-radius:50%;width:26px;height:26px;font-size:12px;line-height:1}
+.empty{padding:25px 15px;text-align:center;color:var(--muted);background:var(--panel);border:1px dashed var(--line);border-radius:15px;line-height:1.8}.empty b{display:block;color:var(--text)}
+nav{position:fixed;z-index:4;bottom:0;left:0;right:0;background:#15161df2;backdrop-filter:blur(15px);border-top:1px solid var(--line);display:flex;justify-content:space-around;padding:9px 4px calc(9px + env(safe-area-inset-bottom))}nav button{border:0;background:none;color:var(--muted);font-size:10.5px;display:grid;gap:3px;justify-items:center;min-width:48px}nav strong{font-size:19px;font-weight:500}nav button.active{color:#d8caff}
+dialog{width:min(93vw,540px);max-height:90vh;overflow:auto;background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:20px;padding:18px}dialog::backdrop{background:#000b;backdrop-filter:blur(3px)}
+.modalhead{display:flex;align-items:center;justify-content:space-between;margin-bottom:13px}.modalhead h2{font-size:17px;margin:0}.close{background:var(--panel2);border:0;color:#fff;border-radius:10px;padding:8px 11px}
+label{display:block;color:var(--muted);font-size:12px;margin:11px 0 6px}
+input,select,textarea{width:100%;background:#11131a;border:1px solid var(--line);border-radius:11px;padding:11px;color:var(--text);font:inherit;font-size:16px}textarea{min-height:76px;resize:vertical}
+input:focus,select:focus,textarea:focus,.search:focus{outline:2px solid #725bb4;outline-offset:0}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:9px}.actions{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}.actions>*{flex:1;min-width:120px}
+.notice{background:#211e30;border:1px solid #40345f;border-radius:12px;padding:11px;color:#d8d0f0;font-size:12px;line-height:1.8;margin:10px 0}
+.resultgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.result{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;cursor:pointer}.result img,.result .poster-ph{width:100%;height:190px;object-fit:cover;background:#292b38;display:grid;place-items:center;color:#cfc2ff;font-size:30px}.resultbody{padding:9px}.resulttitle{font-size:12px;font-weight:800;line-height:1.5}.resultmeta{font-size:10px;color:var(--muted);margin-top:4px}.result .rbtn{width:100%;margin-top:8px;padding:8px;border:0;border-radius:9px;background:#33284f;color:#e8e0ff;font-weight:700;pointer-events:none}.result .rbtn.done{background:#1f3a2e;color:var(--green)}
+.smallnote{font-size:11px;color:var(--muted);line-height:1.8}.progress{height:5px;background:#343644;border-radius:9px;margin-top:7px;overflow:hidden}.progress span{height:100%;display:block;background:var(--accent)}
+.bar{display:flex;align-items:center;gap:8px;margin-top:8px;font-size:12px}.bar i{display:block;height:8px;border-radius:8px;background:var(--accent);min-width:3px}.bar .lbl{width:92px;flex:0 0 92px;color:var(--muted)}.bar .val{color:var(--muted)}
+.tag{display:inline-block;background:var(--panel2);border:1px solid var(--line);border-radius:20px;padding:3px 9px;font-size:11px;color:#cfd0da;margin:2px 0 2px 5px}
+details{margin-top:11px;background:#14161d;border:1px solid var(--line);border-radius:11px;padding:9px 11px}summary{cursor:pointer;color:var(--muted);font-size:12px}details[open] summary{margin-bottom:8px}.descbox{font-size:12px;line-height:1.9;color:#c4c5d0;white-space:pre-wrap}
+.edhead{display:flex;gap:12px;align-items:center;margin-bottom:6px}
+.toast{position:fixed;z-index:20;left:50%;transform:translateX(-50%);bottom:calc(92px + env(safe-area-inset-bottom));max-width:min(92vw,460px);background:#2b2e3d;border:1px solid #4a4e66;color:var(--text);padding:11px 14px;border-radius:13px;font-size:13px;line-height:1.7;display:flex;gap:12px;align-items:center;box-shadow:0 8px 30px #0008}.toast button{background:none;border:0;color:var(--accent);font-weight:800;padding:0;white-space:nowrap}
+.pwrow{display:flex;gap:8px}.pwrow input{flex:1}
+@media(min-width:620px){.stats{grid-template-columns:repeat(4,1fr)}.resultgrid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+</style>
+</head>
+<body>
+<noscript><div style="padding:20px;text-align:center">برای استفاده از Otaku Archive باید جاوااسکریپت فعال باشد.</div></noscript>
+<header><div class="top"><div><div class="brand">OTAKU <span>ARCHIVE</span></div><div class="sub">آرشیو شخصی دنیای داستان‌هایت</div></div><button class="avatar" id="avatar" type="button" aria-label="وضعیت همگام‌سازی" data-go="settings">✦</button></div></header>
+<main>
+
+<section id="home">
+ <div class="stats">
+  <div class="stat"><div class="muted">همه آثار</div><div class="num" id="total">0</div></div>
+  <div class="stat"><div class="muted">تکمیل‌شده</div><div class="num" id="completed">0</div></div>
+  <div class="stat"><div class="muted">در حال دنبال‌کردن</div><div class="num" id="active">0</div></div>
+  <div class="stat"><div class="muted">میانگین امتیاز</div><div class="num" id="average">—</div></div>
+ </div>
+ <div id="backupBanner" class="notice hidden"></div>
+ <div id="syncBanner" class="notice hidden"></div>
+ <div class="head"><h2>در حال دنبال‌کردن</h2><button class="btn sm" data-go="searchPage">⌕ جست‌وجوی اثر</button></div>
+ <div id="watching" class="cards"></div>
+ <div class="head"><h2>آخرین فعالیت‌ها</h2></div>
+ <div id="recent" class="cards"></div>
+</section>
+
+<section id="searchPage" class="hidden">
+ <div class="head"><h2>پیدا کردن اثر</h2></div>
+ <form class="searchrow" id="searchForm"><input class="search" id="query" type="search" enterkeyhint="search" autocomplete="off" placeholder="اسم انیمه، مانگا یا فیلم را بنویس..."><button class="btn" type="submit">جست‌وجو</button></form>
+ <div class="chips" id="searchTypes">
+  <button class="chip active" data-kind="ALL">همه</button><button class="chip" data-kind="ANIME">انیمه</button><button class="chip" data-kind="MANGA">مانگا</button><button class="chip" data-kind="MOVIE">فیلم</button><button class="chip" data-kind="TV">سریال</button>
+ </div>
+ <div class="smallnote" id="sourceHint"></div>
+ <div id="searchStatus" class="smallnote" style="margin:8px 2px" aria-live="polite"></div>
+ <div id="results" class="resultgrid"></div>
+</section>
+
+<section id="library" class="hidden">
+ <div class="head"><h2>کتابخانه من</h2><div class="row"><button class="btn alt sm" id="manualAdd">✎ افزودن دستی</button><button class="btn sm" data-go="searchPage">＋ از جست‌وجو</button></div></div>
+ <input class="search" id="libQuery" type="search" placeholder="جست‌وجو در آرشیو (نام، یادداشت)...">
+ <div class="chips" id="libKinds"><button class="chip active" data-kind="همه">همه</button><button class="chip" data-kind="انیمه">انیمه</button><button class="chip" data-kind="مانگا">مانگا</button><button class="chip" data-kind="فیلم">فیلم</button><button class="chip" data-kind="سریال">سریال</button></div>
+ <div class="chips" id="libStatuses"><button class="chip active" data-status="همه">همه وضعیت‌ها</button><button class="chip" data-status="در حال تماشا">در حال تماشا/خواندن</button><button class="chip" data-status="تکمیل‌شده">تکمیل‌شده</button><button class="chip" data-status="برنامه‌ریزی‌شده">برای بعداً</button><button class="chip" data-status="متوقف‌شده">متوقف‌شده</button><button class="chip" data-status="رهاشده">رهاشده</button></div>
+ <div class="two" style="align-items:center;margin-bottom:10px"><select id="libSort" aria-label="مرتب‌سازی"><option value="updated">مرتب‌سازی: آخرین تغییر</option><option value="created">تازه‌ترین افزوده‌شده</option><option value="name">نام (الفبا)</option><option value="rating">بالاترین امتیاز</option></select><div class="muted" id="libCount" style="text-align:left"></div></div>
+ <div id="libraryItems" class="cards"></div>
+</section>
+
+<section id="recPage" class="hidden">
+ <div class="head"><h2>پیشنهاد برای تو</h2><button class="btn sm" id="recRefresh">↻ بروزرسانی</button></div>
+ <div class="smallnote">بر اساس آثاری که امتیاز ۷ به بالا داده‌ای و ژانرهای موردعلاقه‌ات. هرچه به آثار بیشتری امتیاز بدهی، پیشنهادها دقیق‌تر می‌شوند.</div>
+ <div class="chips" id="recKinds"><button class="chip active" data-kind="همه">همه</button><button class="chip" data-kind="انیمه">انیمه</button><button class="chip" data-kind="مانگا">مانگا</button><button class="chip" data-kind="فیلم">فیلم</button><button class="chip" data-kind="سریال">سریال</button></div>
+ <div id="recStatus" class="smallnote" style="margin:4px 2px 10px" aria-live="polite"></div>
+ <div id="recGrid" class="resultgrid"></div>
+</section>
+
+<section id="statsPage" class="hidden">
+ <div class="head"><h2>آمار من</h2></div>
+ <div class="stat"><div class="muted">به تفکیک نوع</div><div id="typeStats"></div></div>
+ <div class="stat" style="margin-top:10px"><div class="muted">به تفکیک وضعیت</div><div id="statusStats"></div></div>
+ <div class="stat" style="margin-top:10px"><div class="muted">پیشرفت کلی</div><div id="progressStats" style="line-height:2;margin-top:6px"></div></div>
+ <div class="head"><h2>بهترین‌های من</h2></div><div id="topRated" class="cards"></div>
+</section>
+
+<section id="settings" class="hidden">
+ <div class="head"><h2>تنظیمات</h2></div>
+ <div class="stat" id="syncBox" style="margin-bottom:10px"></div>
+
+ <div class="stat"><div class="muted">جست‌وجوی فیلم و سریال (TMDB — اختیاری)</div>
+  <p class="smallnote">بدون توکن، سریال از TVmaze و فیلم از iTunes جست‌وجو می‌شود (اسم انگلیسی بنویس). اگر TMDB برایت باز می‌شود، یک توکن رایگان از <b>themoviedb.org ← Settings ← API</b> بگیر. هم «API Read Access Token» (رشته بلند) و هم «API Key» (۳۲ حرفی) قبول است. انیمه و مانگا بدون توکن کار می‌کنند.</p>
+  <div class="pwrow"><input id="tmdbToken" type="password" autocomplete="off" spellcheck="false" placeholder="توکن TMDB را اینجا وارد کن"><button class="btn alt sm" id="toggleToken" type="button">نمایش</button></div>
+  <div class="actions"><button class="btn" id="saveToken">ذخیره</button><button class="btn alt" id="testToken">تست اتصال</button><button class="btn alt" id="clearToken">پاک کردن</button></div>
+  <div class="smallnote" id="tokenStatus" aria-live="polite"></div>
+ </div>
+
+ <div class="stat" style="margin-top:10px"><div class="muted">پشتیبان‌گیری</div>
+  <p class="smallnote">اطلاعات فقط در همین مرورگر ذخیره می‌شود. پاک کردن اطلاعات مرورگر یا حذف برنامه، آرشیو را پاک می‌کند؛ پس گاهی خروجی بگیر.</p>
+  <div class="smallnote" id="backupInfo"></div>
+  <div class="actions"><button class="btn" id="exportBtn">خروجی JSON</button><button class="btn alt" id="importBtn">بازیابی از فایل</button></div>
+  <input id="importFile" type="file" accept="application/json,.json" class="hidden">
+ </div>
+
+ <div class="stat" style="margin-top:10px"><div class="muted">نصب برنامه</div>
+  <p class="smallnote" id="installHint">در Chrome اندروید: منوی ⋮ ← Install app. در آیفون (Safari): دکمه Share ← Add to Home Screen.</p>
+  <div class="actions"><button class="btn hidden" id="installBtn">نصب روی این دستگاه</button></div>
+ </div>
+
+ <div class="stat" style="margin-top:10px"><div class="muted">داده‌ها</div>
+  <div class="smallnote" id="storageInfo"></div>
+  <div class="muted" style="margin-top:14px">نسخه‌های خودکار (برای بازگشت از اشتباه)</div>
+  <div id="snapList" style="margin-top:6px"></div>
+  <div class="actions"><button class="btn alt" id="snapNow" type="button">ساخت نسخه همین حالا</button></div>
+  <div class="actions"><button class="btn danger" id="wipeBtn">پاک کردن کل آرشیو</button></div>
+ </div>
+
+ <p class="smallnote" style="margin-top:16px;text-align:center">منبع انیمه و مانگا: AniList. این برنامه از API سایت TMDB استفاده می‌کند ولی توسط TMDB تأیید یا پشتیبانی نشده است.</p>
+</section>
+</main>
+
+<nav>
+ <button data-page="home"><strong>⌂</strong>خانه</button>
+ <button data-page="searchPage"><strong>⌕</strong>جست‌وجو</button>
+ <button data-page="library"><strong>▤</strong>کتابخانه</button>
+ <button data-page="recPage"><strong>✧</strong>پیشنهاد</button>
+ <button data-page="statsPage"><strong>◷</strong>آمار</button>
+ <button data-page="settings"><strong>⚙</strong>تنظیمات</button>
+</nav>
+
+<dialog id="editor">
+ <form id="editForm" autocomplete="off">
+  <div class="modalhead"><h2 id="editHeading">افزودن به کتابخانه</h2><button class="close" type="button" id="editClose" aria-label="بستن">✕</button></div>
+  <div class="edhead"><div id="edPoster"></div><div style="flex:1;min-width:0"><label style="margin-top:0">نام اثر</label><input id="name" required maxlength="300"></div></div>
+  <div class="two"><div><label>نوع</label><select id="kind"><option>انیمه</option><option>مانگا</option><option>فیلم</option><option>سریال</option></select></div><div><label>وضعیت</label><select id="status"></select></div></div>
+  <div class="two" id="progressRow"><div><label id="progressLabel">قسمت فعلی</label><input id="progress" type="number" inputmode="numeric" min="0" value="0"></div><div><label>تعداد کل (اختیاری)</label><input id="totalProgress" type="number" inputmode="numeric" min="0"></div></div>
+  <div class="two"><div><label>امتیاز از ۱۰</label><input id="rating" type="number" inputmode="decimal" min="0" max="10" step=".5" placeholder="مثلاً 9.5"></div><div><label>سال انتشار</label><input id="year" type="text" inputmode="numeric" maxlength="4"></div></div>
+  <label>یادداشت شخصی / نقد</label><textarea id="notes" placeholder="نظرت درباره این اثر..."></textarea>
+  <details id="aboutBox"><summary>درباره اثر (خلاصه و ژانر)</summary><div id="genres"></div><div class="descbox" id="descBox"></div></details>
+  <details><summary>پیشرفته (لینک پوستر)</summary><label style="margin-top:0">آدرس تصویر پوستر</label><input id="posterUrl" type="url" inputmode="url" placeholder="https://..."></details>
+  <div class="actions"><button class="btn" type="submit">ذخیره</button><button id="deleteBtn" class="btn danger hidden" type="button">حذف</button></div>
+ </form>
+</dialog>
+
+<dialog id="conflictDlg"><div class="modalhead"><h2>تعارض همگام‌سازی</h2><button class="close" type="button" id="cfClose" aria-label="بستن">✕</button></div>
+ <div class="smallnote">این آثار روی دو دستگاه به‌صورت متفاوت تغییر کرده‌اند. چیزی بدون تصمیم تو حذف یا بازنویسی نمی‌شود.</div>
+ <div class="actions"><button class="btn alt sm" type="button" id="cfAllLocal">همه: نگه‌داشتن این دستگاه</button><button class="btn alt sm" type="button" id="cfAllRemote">همه: نسخه Drive</button></div>
+ <div id="cfList"></div></dialog>
+
+<dialog id="askDlg"><div class="modalhead"><h2 id="askTitle"></h2></div><div class="smallnote" id="askText" style="font-size:13px"></div><div class="actions" id="askBtns" style="flex-direction:column"></div></dialog>
+
+<div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
+
+<script>
+'use strict';
+/* ───────── ثابت‌ها ───────── */
+const KEY='otaku-archive-v2', TOKEN='otaku-tmdb-token', BK='otaku-last-backup';
+const KINDS=['انیمه','مانگا','فیلم','سریال'];
+const STATUSES=['برنامه‌ریزی‌شده','در حال تماشا','تکمیل‌شده','متوقف‌شده','رهاشده'];
+const SEARCH_KIND={ANIME:'انیمه',MANGA:'مانگا',MOVIE:'فیلم',TV:'سریال'};
+const PAGES=['home','searchPage','library','recPage','statsPage','settings'];
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const norm=s=>String(s??'').toLowerCase().replace(/ي/g,'ی').replace(/ك/g,'ک');
+
+/* ───────── ذخیره‌سازی امن ───────── */
+const lsGet=k=>{try{return localStorage.getItem(k)}catch{return null}};
+const lsSet=(k,v)=>{try{localStorage.setItem(k,v);return true}catch{return false}};
+const lsDel=k=>{try{localStorage.removeItem(k)}catch{}};
+
+const str=(v,max=5000)=>v==null?'':String(v).slice(0,max);
+const posInt=v=>{const n=Number(v);return Number.isFinite(n)&&n>0?Math.floor(n):0};
+const cleanUrl=u=>{u=str(u,2000).trim();return /^https?:\/\//i.test(u)?u:''};
+const uid=()=>'manual-'+Date.now().toString(36)+Math.random().toString(36).slice(2,7);
+
+/* هر آیتمی (از حافظه یا فایل بکاپ) قبل از استفاده تمیز و ایمن می‌شود */
+function sanitize(r){
+  if(!r||typeof r!=='object')return null;
+  const name=str(r.name,300).trim(); if(!name)return null;
+  const kind=KINDS.includes(r.kind)?r.kind:'انیمه';
+  const origin=['anilist','tmdb','tvmaze','itunes','manual'].includes(r.origin)?r.origin:'manual';
+  const externalId=str(r.externalId,40).replace(/[^\w-]/g,'');
+  let id=str(r.id,80);
+  if(!/^[\w-]+$/.test(id)) id=(origin!=='manual'&&externalId)?(origin==='tmdb'?'tmdb-'+(kind==='سریال'?'tv':'movie')+'-'+externalId:origin+'-'+externalId):uid();
+  // مهاجرت شناسه‌های قدیمی TMDB (tmdb-123 → tmdb-movie-123 / tmdb-tv-123)
+  if(/^tmdb-\d+$/.test(id)) id='tmdb-'+(kind==='سریال'?'tv':'movie')+'-'+id.slice(5);
+  let rating='';
+  if(r.rating!==''&&r.rating!=null&&Number.isFinite(Number(r.rating))) rating=Math.min(10,Math.max(0,Number(r.rating)));
+  const now=Date.now();
+  const updated=Number.isFinite(Number(r.updated))&&Number(r.updated)>0?Number(r.updated):now;
+  let progress=posInt(r.progress), totalProgress=posInt(r.totalProgress);
+  if(kind==='فیلم'){progress=0;totalProgress=0}
+  return {id,externalId,origin,name,alt:str(r.alt,600),kind,
+    status:STATUSES.includes(r.status)?r.status:'برنامه‌ریزی‌شده',
+    progress,totalProgress,rating,year:str(r.year,10),poster:cleanUrl(r.poster),
+    description:str(r.description,1500),notes:str(r.notes,6000),
+    genres:Array.isArray(r.genres)?r.genres.slice(0,12).map(g=>str(g,40)):[],
+    updated,created:Number.isFinite(Number(r.created))&&Number(r.created)>0?Number(r.created):updated};
+}
+function dedupe(list){const m=new Map();for(const x of list){const o=m.get(x.id);if(!o||x.updated>=o.updated)m.set(x.id,x)}return [...m.values()]}
+
+/* ───────── ذخیره‌سازی: IndexedDB (با جایگزین localStorage) + نسخه‌های خودکار ───────── */
+let items=[];
+let warned=false,pTimer=null,db=null,useLS=false,saved=new Map(),snapIndex=[],lastSnapTs=0;
+const DB_NAME='otaku-archive',MAX_SNAPS=8,SNAP_EVERY=12*36e5;
+const idbReq=r=>new Promise((res,rej)=>{r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)});
+const idbDone=tx=>new Promise((res,rej)=>{tx.oncomplete=()=>res();tx.onerror=()=>rej(tx.error);tx.onabort=()=>rej(tx.error||Error('abort'))});
+function openDB(){return new Promise((res,rej)=>{
+  if(!window.indexedDB)return rej(Error('no idb'));
+  let r;try{r=indexedDB.open(DB_NAME,1)}catch(e){return rej(e)}
+  const t=setTimeout(()=>rej(Error('timeout')),5000);
+  r.onupgradeneeded=()=>{const d=r.result;d.createObjectStore('items',{keyPath:'id'});d.createObjectStore('meta');d.createObjectStore('snapshots',{keyPath:'ts'})};
+  r.onsuccess=()=>{clearTimeout(t);res(r.result)};r.onerror=()=>{clearTimeout(t);rej(r.error)};r.onblocked=()=>{clearTimeout(t);rej(Error('blocked'))};
+})}
+const metaGet=k=>idbReq(db.transaction('meta').objectStore('meta').get(k));
+const snapJSON=list=>'['+list.map(x=>JSON.stringify(x)).join(',')+']';
+
+/* داده‌های نسخه‌های قبلی (localStorage) */
+function legacyLoad(){
+  const raw=lsGet(KEY); if(!raw)return [];
+  try{const d=JSON.parse(raw);if(!Array.isArray(d))throw 0;return dedupe(d.map(sanitize).filter(Boolean))}
+  catch{lsSet(KEY+'-corrupt',raw);setTimeout(()=>toast('داده‌های ذخیره‌شده خراب بود. یک نسخه از آن کنار گذاشته شد و آرشیو خالی شروع شد.',9000),400);return []}
+}
+async function loadItems(){
+  try{db=await openDB()}catch{db=null}
+  if(!db){useLS=true;return legacyLoad()}
+  try{
+    snapIndex=(await metaGet('snapIndex'))||[];lastSnapTs=(await metaGet('lastSnap'))||0;
+    if(!(await metaGet('migrated'))){
+      // مهاجرت از localStorage: اول نسخه امن، بعد نوشتن، بعد تأیید. داده قدیمی دست‌نخورده می‌ماند.
+      const list=legacyLoad();
+      if(list.length)await addSnapshot(snapJSON(list),list.length,'قبل از مهاجرت به ذخیره‌سازی جدید (نسخه اصلی)',true);
+      const tx=db.transaction('items','readwrite');list.forEach(x=>tx.objectStore('items').put(x));await idbDone(tx);
+      const n=await idbReq(db.transaction('items').objectStore('items').count());
+      if(n!==list.length)throw Error('verify');
+      const t2=db.transaction('meta','readwrite');t2.objectStore('meta').put({ts:Date.now(),count:list.length},'migrated');await idbDone(t2);
+    }
+    const rows=await idbReq(db.transaction('items').objectStore('items').getAll());
+    saved=new Map(rows.map(r=>[r.id,JSON.stringify(r)]));
+    return dedupe(rows.map(sanitize).filter(Boolean));
+  }catch(e){ // هر مشکلی → به روش قبلی برگرد؛ چیزی از دست نمی‌رود
+    useLS=true;db=null;setTimeout(()=>toast('ذخیره‌سازی جدید در این مرورگر کار نکرد؛ از روش قبلی استفاده می‌شود.',7000),400);return legacyLoad();
+  }
+}
+function addSnapshot(data,count,reason,keep=false){
+  if(!db||!count)return Promise.resolve();
+  const ts=Math.max(Date.now(),lastSnapTs+1);lastSnapTs=ts;
+  snapIndex.push({ts,reason,count,keep});
+  const normal=snapIndex.filter(s=>!s.keep).sort((a,b)=>b.ts-a.ts),drop=new Set(normal.slice(MAX_SNAPS).map(s=>s.ts));
+  snapIndex=snapIndex.filter(s=>!drop.has(s.ts));
+  const tx=db.transaction(['snapshots','meta'],'readwrite'),sn=tx.objectStore('snapshots');
+  sn.put({ts,data});drop.forEach(t=>sn.delete(t));
+  tx.objectStore('meta').put(snapIndex,'snapIndex');tx.objectStore('meta').put(ts,'lastSnap');
+  return idbDone(tx).catch(()=>{});
+}
+function snapshotCurrent(reason,keep=false){flush();return addSnapshot(snapJSON(items),items.length,reason,keep)}
+
+function storageFail(){if(!warned){warned=true;toast('ذخیره روی دستگاه ناموفق بود (حافظه پر است یا مرورگر ذخیره را بسته). حتماً خروجی JSON بگیر.',9000)}}
+function persistLS(){if(lsSet(KEY,JSON.stringify(items)))return true;storageFail();return false}
+/* فقط آثار تغییرکرده نوشته می‌شوند. قبل از حذف/جایگزینی گروهی و هر ۱۲ ساعت، از وضعیت قبلی نسخه گرفته می‌شود. */
+function persistIdb(){
+  const cur=new Map();for(const x of items)cur.set(x.id,JSON.stringify(x));
+  const puts=[],dels=[];
+  for(const [id,j] of cur)if(saved.get(id)!==j)puts.push(id);
+  for(const id of saved.keys())if(!cur.has(id))dels.push(id);
+  if(!puts.length&&!dels.length)return;
+  const now=Date.now(),before=()=>'['+[...saved.values()].join(',')+']';
+  if(saved.size>=10&&cur.size<saved.size/2){if(now-lastSnapTs>60000)addSnapshot(before(),saved.size,'قبل از حذف یا جایگزینی گروهی')}
+  else if(saved.size&&now-lastSnapTs>SNAP_EVERY)addSnapshot(before(),saved.size,'نسخه خودکار');
+  const prev=saved;saved=cur;
+  const tx=db.transaction('items','readwrite'),st=tx.objectStore('items'),byId=new Map(items.map(x=>[x.id,x]));
+  puts.forEach(id=>st.put(byId.get(id)));dels.forEach(id=>st.delete(id));
+  idbDone(tx).then(()=>bc?.postMessage('changed')).catch(()=>{saved=prev;storageFail()});
+}
+function persistNow(){pTimer=null;if(useLS||!db)return persistLS();try{persistIdb()}catch{storageFail()}}
+/* ذخیره با تأخیر کوتاه: با لیست‌های بزرگ هر کلیک همه‌چیز را دوباره ننویسد */
+function persist(){clearTimeout(pTimer);pTimer=setTimeout(persistNow,250);syncSoon();return true}
+function flush(){if(pTimer){clearTimeout(pTimer);persistNow()}}
+addEventListener('pagehide',flush);
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')flush()});
+function commit(){persist();renderAll()}
+/* چند تب باز: تغییر یک تب در بقیه هم دیده شود */
+const bc=typeof BroadcastChannel==='function'?new BroadcastChannel('otaku-archive'):null;
+if(bc)bc.onmessage=async()=>{if(pTimer||!db)return;try{const rows=await idbReq(db.transaction('items').objectStore('items').getAll());saved=new Map(rows.map(r=>[r.id,JSON.stringify(r)]));items=dedupe(rows.map(sanitize).filter(Boolean));renderAll()}catch{}};
+window.addEventListener('storage',e=>{if(useLS&&e.key===KEY&&!pTimer){items=legacyLoad();renderAll()}});
+/* درخواست «ذخیره دائمی» تا مرورگر هنگام کمبود حافظه آرشیو را پاک نکند */
+async function requestPersist(){try{if(navigator.storage?.persisted&&!(await navigator.storage.persisted()))await navigator.storage.persist()}catch{}}
+
+/* ───────── پیام‌ها و دیالوگ‌ها ───────── */
+let toastTimer;
+function toast(msg,ms=3500,action){
+  const t=$('toast');t.innerHTML='';const s=document.createElement('span');s.textContent=msg;t.append(s);
+  if(action){const b=document.createElement('button');b.textContent=action.label;b.onclick=()=>{t.classList.add('hidden');action.fn()};t.append(b)}
+  t.classList.remove('hidden');clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.add('hidden'),action?Math.max(ms,6000):ms);
+}
+function ask(title,text,buttons){
+  return new Promise(res=>{
+    const d=$('askDlg');$('askTitle').textContent=title;$('askText').textContent=text;const box=$('askBtns');box.innerHTML='';
+    let val='';
+    buttons.forEach(b=>{const el=document.createElement('button');el.type='button';el.className='btn '+(b.cls||'');el.textContent=b.label;el.onclick=()=>{val=b.value;d.close()};box.append(el)});
+    d.onclose=()=>res(val);d.showModal();
+  });
+}
+/* بستن دیالوگ با لمس بیرون از آن */
+document.querySelectorAll('dialog').forEach(d=>d.addEventListener('click',e=>{
+  if(e.target!==d)return;const r=d.getBoundingClientRect();
+  if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)d.close();
+}));
+
+/* ───────── نمایش ───────── */
+const unitOf=k=>k==='مانگا'?'چپتر':'قسمت';
+function statusLabel(s,kind){
+  if(s==='برنامه‌ریزی‌شده')return 'برای بعداً';
+  if(s==='در حال تماشا')return kind==='مانگا'?'در حال خواندن':'در حال تماشا';
+  return s;
+}
+const placeholder=cls=>`<div class="${cls} placeholder">✦</div>`;
+function posterHTML(url,alt=''){return url?`<img class="poster" src="${esc(url)}" alt="${esc(alt)}" loading="lazy" decoding="async" referrerpolicy="no-referrer">`:placeholder('poster')}
+document.addEventListener('error',e=>{
+  const t=e.target;if(t.tagName!=='IMG')return;
+  if(t.classList.contains('poster')){t.outerHTML=placeholder('poster')}
+  else if(t.closest('.result')){t.outerHTML='<div class="poster-ph">✦</div>'}
+},true);
+
+function canBump(x){return x.kind!=='فیلم'&&x.status==='در حال تماشا'&&(!x.totalProgress||x.progress<x.totalProgress)}
+function itemCard(x){
+  const pct=x.totalProgress?Math.min(100,Math.round(x.progress/x.totalProgress*100)):0;
+  const prog=x.kind!=='فیلم'&&x.progress?` · ${unitOf(x.kind)} ${x.progress}${x.totalProgress?' از '+x.totalProgress:''}`:'';
+  return `<article class="item" data-id="${esc(x.id)}" tabindex="0">${posterHTML(x.poster,x.name)}<div class="info"><div class="title">${esc(x.name)}</div><div class="meta">${esc(x.kind)} · ${esc(statusLabel(x.status,x.kind))}${prog}${x.year?' · '+esc(x.year):''}</div>${x.totalProgress?`<div class="progress"><span style="width:${pct}%"></span></div>`:''}</div><div class="side"><div class="rating">${x.rating!==''?'★ '+esc(x.rating)+'/10':'—'}</div>${canBump(x)?`<button class="plus" data-act="plus" type="button" aria-label="یک ${unitOf(x.kind)} جلو برو">+۱ ${unitOf(x.kind)}</button>`:''}</div></article>`;
+}
+const emptyBox=(t,s)=>`<div class="empty"><b>${t}</b>${s}</div>`;
+
+const currentPage=()=>PAGES.find(id=>!$(id).classList.contains('hidden'))||'home';
+function renderHome(){
+  let done=0,active=0,rs=0,rn=0;
+  for(const x of items){if(x.status==='تکمیل‌شده')done++;else if(x.status==='در حال تماشا')active++;if(x.rating!==''){rs+=x.rating;rn++}}
+  $('total').textContent=items.length;$('completed').textContent=done;$('active').textContent=active;
+  $('average').textContent=rn?(rs/rn).toFixed(1):'—';
+  const sorted=items.slice().sort((a,b)=>b.updated-a.updated);
+  const watching=sorted.filter(x=>x.status==='در حال تماشا').slice(0,6);
+  $('watching').innerHTML=watching.length?watching.map(itemCard).join(''):emptyBox('چیزی در حال دنبال‌کردن نیست','یک اثر را روی «در حال تماشا/خواندن» بگذار تا اینجا با دکمه سریع پیشرفت بیاید.');
+  $('recent').innerHTML=sorted.length?sorted.slice(0,5).map(itemCard).join(''):emptyBox('کتابخانه‌ات هنوز خالیه!','از بخش جست‌وجو اولین اثر رو پیدا و اضافه کن.');
+  renderBanner();
+}
+/* فقط صفحه‌ای که باز است دوباره ساخته می‌شود */
+function renderPage(id){({home:renderHome,library:renderLibrary,statsPage:renderStats,settings:()=>{renderStorageInfo();renderSync()},searchPage:renderResults,recPage:renderRecs})[id]?.()}
+function renderAll(){renderPage(currentPage())}
+function renderBanner(){
+  const b=$('backupBanner'),last=Number(lsGet(BK))||0,days=last?(Date.now()-last)/864e5:Infinity;
+  if(items.length>=3&&days>14){b.innerHTML=`${last?'بیش از دو هفته از آخرین پشتیبان گذشته.':'هنوز از آرشیوت پشتیبان نگرفته‌ای.'} <button class="btn sm" data-go="settings" style="margin-right:6px">همین حالا</button>`;b.classList.remove('hidden')}
+  else b.classList.add('hidden');
+}
+let libKind='همه',libStatus='همه',libList=[],libLimit=40;
+const LIB_PAGE=40,coll=new Intl.Collator('fa'),hay=new WeakMap();
+const hayOf=x=>{let h=hay.get(x);if(h===undefined){h=norm(x.name+' '+x.alt+' '+x.notes);hay.set(x,h)}return h};
+const io=typeof IntersectionObserver==='function'?new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.click()}),{rootMargin:'500px'}):null;
+function moreBtn(){const n=libList.length-libLimit;return n>0?`<button class="btn alt more" id="libMore" type="button">نمایش بیشتر (${n} مورد دیگر)</button>`:''}
+function watchMore(){const m=$('libMore');if(m&&io)io.observe(m)}
+function renderLibrary(){
+  const q=norm($('libQuery').value.trim()),sort=$('libSort').value;
+  const arr=items.filter(x=>(libKind==='همه'||x.kind===libKind)&&(libStatus==='همه'||x.status===libStatus)&&(!q||hayOf(x).includes(q)));
+  const cmp={updated:(a,b)=>b.updated-a.updated,created:(a,b)=>b.created-a.created,name:(a,b)=>coll.compare(a.name,b.name),rating:(a,b)=>(b.rating===''?-1:b.rating)-(a.rating===''?-1:a.rating)}[sort];
+  arr.sort(cmp);libList=arr;
+  $('libCount').textContent=arr.length+' اثر';
+  $('libraryItems').innerHTML=arr.length?arr.slice(0,libLimit).map(itemCard).join('')+moreBtn():emptyBox(items.length?'موردی پیدا نشد':'کتابخانه خالیه','فیلترها را تغییر بده یا از جست‌وجو اثر اضافه کن.');
+  watchMore();
+}
+function showMore(){
+  const m=$('libMore');if(!m)return;io?.unobserve(m);m.remove();
+  const from=libLimit;libLimit+=LIB_PAGE;
+  $('libraryItems').insertAdjacentHTML('beforeend',libList.slice(from,libLimit).map(itemCard).join('')+moreBtn());watchMore();
+}
+const resetLib=()=>{libLimit=LIB_PAGE;renderLibrary()};
+const debounce=(f,ms)=>{let t;return(...a)=>{clearTimeout(t);t=setTimeout(()=>f(...a),ms)}};
+function barRows(rows){const mx=Math.max(1,...rows.map(r=>r[1]));return rows.map(([l,n])=>`<div class="bar"><span class="lbl">${esc(l)}</span><i style="width:${Math.round(n/mx*55)+(n?0:0)}%;${n?'':'opacity:.2'}"></i><span class="val">${n}</span></div>`).join('')}
+function renderStats(){
+  $('typeStats').innerHTML=barRows(KINDS.map(k=>[k,items.filter(x=>x.kind===k).length]));
+  $('statusStats').innerHTML=barRows(STATUSES.map(s=>[statusLabel(s,'انیمه'),items.filter(x=>x.status===s).length]));
+  const sum=k=>items.filter(x=>k.includes(x.kind)).reduce((s,x)=>s+x.progress,0);
+  $('progressStats').innerHTML=`قسمت‌های دیده‌شده (انیمه و سریال): <b>${sum(['انیمه','سریال'])}</b><br>چپترهای خوانده‌شده: <b>${sum(['مانگا'])}</b><br>فیلم‌های دیده‌شده: <b>${items.filter(x=>x.kind==='فیلم'&&x.status==='تکمیل‌شده').length}</b>`;
+  const top=items.filter(x=>x.rating!=='').sort((a,b)=>b.rating-a.rating||b.updated-a.updated).slice(0,5);
+  $('topRated').innerHTML=top.length?top.map(itemCard).join(''):emptyBox('هنوز امتیازی ثبت نکرده‌ای','به آثارت امتیاز بده تا اینجا ببینی.');
+}
+function fmtDate(ts){const d=new Date(ts);return d.toLocaleDateString('fa-IR')+' '+d.toLocaleTimeString('fa-IR',{hour:'2-digit',minute:'2-digit'})}
+function renderSnaps(){
+  const l=$('snapList');if(!l)return;
+  if(!db){l.innerHTML='<div class="smallnote">نسخه‌گیری خودکار در این مرورگر فعال نیست (ذخیره‌سازی ساده استفاده می‌شود).</div>';return}
+  l.innerHTML=snapIndex.length?snapIndex.slice().sort((a,b)=>b.ts-a.ts).map(x=>`<div class="snaprow"><div>${esc(fmtDate(x.ts))} · ${x.count} اثر<br><span class="muted">${esc(x.reason)}${x.keep?' · حفظ دائمی':''}</span></div><button class="btn alt sm" type="button" data-snap="${x.ts}">بازگردانی</button></div>`).join(''):'<div class="smallnote">هنوز نسخه‌ای ساخته نشده. هر ۱۲ ساعت (در صورت تغییر) و قبل از هر حذف یا بازیابی بزرگ خودکار ساخته می‌شود.</div>';
+}
+async function renderStorageInfo(){
+  const last=Number(lsGet(BK))||0;
+  $('backupInfo').textContent=last?'آخرین پشتیبان: '+fmtDate(last):'هنوز پشتیبان فایلی نگرفته‌ای.';
+  renderSnaps();
+  let extra='';
+  try{
+    const est=await navigator.storage?.estimate?.();if(est?.usage!=null)extra+=` · حدود ${Math.max(0.1,est.usage/1048576).toFixed(1)} مگابایت`;
+    if(navigator.storage?.persisted){await requestPersist();const per=await navigator.storage.persisted();extra+=per?' · حفاظت در برابر پاک‌شدن خودکار: فعال ✓':' · حفاظت در برابر پاک‌شدن خودکار: غیرفعال (نصب برنامه روی صفحه اصلی معمولاً آن را فعال می‌کند)'}
+  }catch{}
+  $('storageInfo').textContent=`${items.length} اثر ذخیره شده · روش: ${useLS?'ساده (localStorage)':'IndexedDB'}${extra}`;
+}
+async function restoreSnapshot(ts){
+  let list=[];
+  try{const rec=await idbReq(db.transaction('snapshots').objectStore('snapshots').get(ts));list=dedupe(JSON.parse(rec.data).map(sanitize).filter(Boolean))}catch{}
+  if(!list.length){toast('این نسخه قابل خواندن نیست.');return}
+  const c=await ask('بازگردانی نسخه',`آرشیو به نسخه ${fmtDate(ts)} (${list.length} اثر) برمی‌گردد. آرشیو فعلی (${items.length} اثر) قبلش خودکار نسخه‌گیری می‌شود تا بتوانی برگردی.`,[{label:'بازگردانی',value:'ok'},{label:'انصراف',value:'',cls:'alt'}]);
+  if(c!=='ok')return;
+  await snapshotCurrent('قبل از بازگردانی نسخه');
+  items=list;commit();renderSnaps();toast('بازگردانی شد: '+list.length+' اثر.');
+}
+
+/* ───────── ناوبری (دکمه برگشت گوشی هم کار می‌کند) ───────── */
+function show(id){
+  if(!PAGES.includes(id))id='home';
+  document.querySelectorAll('main section').forEach(s=>s.classList.toggle('hidden',s.id!==id));
+  document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===id));
+  if(id==='settings'){$('tmdbToken').value=lsGet(TOKEN)||'';$('tokenStatus').textContent=''}
+  if(id==='searchPage'){updateHint()}
+  renderPage(id);renderSync();if(id==='recPage')loadRecs(false);window.scrollTo(0,0);
+}
+function go(id){if(location.hash.slice(1)===id)show(id);else location.hash=id}
+window.addEventListener('hashchange',()=>show(location.hash.slice(1)));
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>go(b.dataset.page));
+
+/* کلیک روی کارت‌ها، نتایج و دکمه‌های go */
+document.addEventListener('click',e=>{
+  if(e.target.id==='libMore'){showMore();return}
+  const sn=e.target.closest('[data-snap]');if(sn){restoreSnapshot(Number(sn.dataset.snap));return}
+  const g=e.target.closest('[data-go]');if(g){go(g.dataset.go);if(g.dataset.go==='searchPage')setTimeout(()=>$('query').focus(),50);return}
+  const plus=e.target.closest('[data-act="plus"]');if(plus){e.stopPropagation();bump(plus.closest('.item').dataset.id);return}
+  const it=e.target.closest('.item');if(it){editItem(it.dataset.id);return}
+  const hide=e.target.closest('[data-act="hide"]');if(hide){e.stopPropagation();dismissRec(hide.closest('.result').dataset.r);return}
+  const r=e.target.closest('.result');if(r){if(r.dataset.r!==undefined)pickResult(recView[Number(r.dataset.r)]);else chooseResult(Number(r.dataset.i))}
+});
+document.addEventListener('keydown',e=>{
+  if(e.key!=='Enter'&&e.key!==' ')return;
+  const t=e.target;if(!(t.matches?.('.item,.result')))return;e.preventDefault();t.click();
+});
+
+/* فیلترها */
+function bindChips(box,key,setter){document.querySelectorAll(box+' button').forEach(b=>b.onclick=()=>{setter(b.dataset[key]);document.querySelectorAll(box+' button').forEach(x=>x.classList.toggle('active',x===b));resetLib()})}
+bindChips('#libKinds','kind',v=>libKind=v);bindChips('#libStatuses','status',v=>libStatus=v);
+$('libQuery').oninput=debounce(resetLib,180);$('libSort').onchange=resetLib;
+
+/* ───────── جست‌وجو ───────── */
+let searchKind='ALL',found=[],seq=0,ctl=null;
+function setStatus(t,html){const s=$('searchStatus');if(html)s.innerHTML=t;else s.textContent=t}
+function updateHint(){$('sourceHint').textContent=searchKind==='ALL'?'جست‌وجو در انیمه، مانگا، فیلم و سریال با هم (AniList + TMDB/TVmaze/iTunes). برای فیلم و سریال اسم انگلیسی بهتر جواب می‌دهد.':(searchKind==='ANIME'||searchKind==='MANGA')?'منبع: AniList (بدون نیاز به کلید).':(tmdbAuth()?'منبع: TMDB (اگر باز نشد، خودکار از منبع جایگزین استفاده می‌شود).':(searchKind==='TV'?'منبع: TVmaze (بدون نیاز به کلید؛ بهتر است اسم انگلیسی بنویسی).':'منبع: iTunes (بدون نیاز به کلید؛ فقط اسم انگلیسی).'))}
+document.querySelectorAll('#searchTypes button').forEach(b=>b.onclick=()=>{
+  searchKind=b.dataset.kind;document.querySelectorAll('#searchTypes button').forEach(x=>x.classList.toggle('active',x===b));updateHint();
+  if($('query').value.trim())searchTitles();else{found=[];renderResults();setStatus('')}
+});
+$('searchForm').onsubmit=e=>{e.preventDefault();searchTitles();$('query').blur()};
+
+const htmlToText=h=>{if(!h)return '';return new DOMParser().parseFromString(String(h).replace(/<br\s*\/?>/gi,'\n'),'text/html').body.textContent.trim()};
+const itemId=(origin,kind,ext)=>origin==='tmdb'?'tmdb-'+(kind==='سریال'?'tv':'movie')+'-'+ext:origin+'-'+ext;
+
+async function searchAniList(q,signal,type){
+  const gql='query($search:String,$type:MediaType,$n:Int){Page(perPage:$n){media(search:$search,type:$type,sort:SEARCH_MATCH){id type seasonYear startDate{year} episodes chapters description(asHtml:false) coverImage{medium} title{romaji english native} synonyms genres}}}';
+  const res=await fetch('https://graphql.anilist.co',{method:'POST',signal,headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({query:gql,variables:{search:q,...(type?{type}:{}),n:type?20:14}})});
+  if(res.status===429)throw Error('تعداد درخواست‌ها به AniList زیاد شد. یک دقیقه صبر کن و دوباره امتحان کن.');
+  if(!res.ok)throw Error('AniList پاسخ نداد (کد '+res.status+').');
+  const data=await res.json();
+  if(data.errors)throw Error('AniList خطا برگرداند: '+(data.errors[0]?.message||''));
+  return (data.data?.Page?.media||[]).map(m=>{const kind=m.type==='MANGA'?'مانگا':'انیمه';return {id:itemId('anilist',kind,m.id),externalId:String(m.id),origin:'anilist',kind,
+    name:m.title.english||m.title.romaji||m.title.native||'—',
+    alt:[...new Set([m.title.romaji,m.title.native,m.title.english,...(m.synonyms||[])].filter(Boolean))].join(' | '),
+    poster:m.coverImage?.medium||'',year:String(m.startDate?.year||m.seasonYear||''),
+    total:(kind==='انیمه'?m.episodes:m.chapters)||0,description:htmlToText(m.description),genres:m.genres||[]}});
+}
+function tmdbAuth(){
+  const t=(lsGet(TOKEN)||'').trim();if(!t)return null;
+  return /^[a-f0-9]{32}$/i.test(t)?{q:'&api_key='+t,headers:{accept:'application/json'}}:{q:'',headers:{Authorization:'Bearer '+t,accept:'application/json'}};
+}
+async function tmdbGet(path,params,signal){
+  const a=tmdbAuth();if(!a)throw Error('NO_TOKEN');
+  const res=await fetch(`https://api.themoviedb.org/3/${path}?${params}${a.q}`,{headers:a.headers,signal});
+  if(res.status===401)throw Error('توکن TMDB نامعتبر است. در تنظیمات دوباره وارد کن.');
+  if(res.status===429)throw Error('تعداد درخواست‌ها به TMDB زیاد شد. کمی بعد امتحان کن.');
+  if(!res.ok)throw Error('TMDB پاسخ نداد (کد '+res.status+').');
+  return res.json();
+}
+async function searchTMDB(q,signal,key){
+  const ep=key==='MOVIE'?'movie':'tv',kind=SEARCH_KIND[key];
+  const data=await tmdbGet('search/'+ep,`query=${encodeURIComponent(q)}&include_adult=false&language=fa-IR&page=1`,signal);
+  return (data.results||[]).map(m=>({id:itemId('tmdb',kind,m.id),externalId:String(m.id),origin:'tmdb',kind,
+    name:m.title||m.name||'—',alt:[m.original_title,m.original_name].filter(Boolean).join(' | '),
+    poster:m.poster_path?'https://image.tmdb.org/t/p/w185'+m.poster_path:'',
+    year:(m.release_date||m.first_air_date||'').slice(0,4),total:0,description:m.overview||'',genres:[]}));
+}
+async function searchTVmaze(q,signal){
+  const res=await fetch('https://api.tvmaze.com/search/shows?q='+encodeURIComponent(q),{signal});
+  if(res.status===429)throw Error('تعداد درخواست‌ها به TVmaze زیاد شد. کمی بعد امتحان کن.');
+  if(!res.ok)throw Error('TVmaze پاسخ نداد (کد '+res.status+').');
+  return (await res.json()).slice(0,20).map(({show:m})=>({id:itemId('tvmaze','سریال',m.id),externalId:String(m.id),origin:'tvmaze',kind:'سریال',
+    name:m.name||'—',alt:'',poster:(m.image?.original||m.image?.medium||'').replace(/^http:/,'https:'),year:(m.premiered||'').slice(0,4),total:0,
+    description:htmlToText(m.summary),genres:m.genres||[]}));
+}
+async function searchITunes(q,signal){
+  const res=await fetch('https://itunes.apple.com/search?media=movie&entity=movie&limit=20&term='+encodeURIComponent(q),{signal});
+  if(!res.ok)throw Error('iTunes پاسخ نداد (کد '+res.status+').');
+  return ((await res.json()).results||[]).filter(m=>m.trackId).map(m=>({id:itemId('itunes','فیلم',m.trackId),externalId:String(m.trackId),origin:'itunes',kind:'فیلم',
+    name:m.trackName||'—',alt:m.collectionName||'',poster:(m.artworkUrl100||'').replace('100x100','200x300'),year:(m.releaseDate||'').slice(0,4),total:0,
+    description:m.longDescription||m.shortDescription||'',genres:m.primaryGenreName?[m.primaryGenreName]:[]}));
+}
+let usedFallback=false;
+/* TMDB اول؛ اگر توکن نبود، باز نشد، نامعتبر/محدود بود یا نتیجه‌ای نداشت → منبع رایگان جایگزین */
+async function searchVideo(q,signal,key){
+  if(tmdbAuth()){
+    try{const r=await searchTMDB(q,signal,key);if(r.length)return r;usedFallback=true}
+    catch(e){if(e.name==='AbortError')throw e;usedFallback=true}
+  }
+  return key==='TV'?searchTVmaze(q,signal):searchITunes(q,signal);
+}
+const interleave=lists=>{const out=[],seen=new Set();for(let i=0;lists.some(l=>i<l.length);i++)for(const l of lists){const x=l[i];if(x&&!seen.has(x.id)){seen.add(x.id);out.push(x)}}return out};
+async function searchTitles(){
+  const q=$('query').value.trim();
+  if(!q){setStatus('اول اسم یک اثر را وارد کن.');$('query').focus();return}
+  const my=++seq;ctl?.abort();ctl=new AbortController();const sig=ctl.signal;usedFallback=false;
+  setStatus('در حال جست‌وجو…');$('results').innerHTML='';found=[];
+  const tasks=searchKind==='ALL'?[searchAniList(q,sig,null),searchVideo(q,sig,'MOVIE'),searchVideo(q,sig,'TV')]
+    :(searchKind==='ANIME'||searchKind==='MANGA')?[searchAniList(q,sig,searchKind)]:[searchVideo(q,sig,searchKind)];
+  const res=await Promise.allSettled(tasks);
+  if(my!==seq)return;
+  const bad=res.filter(r=>r.status==='rejected');
+  if(bad.some(r=>r.reason?.name==='AbortError'))return;
+  const ok=res.filter(r=>r.status==='fulfilled').map(r=>r.value);
+  if(!ok.length){
+    const err=bad[0].reason;
+    setStatus(!navigator.onLine||err instanceof TypeError?'ارتباط با اینترنت برقرار نشد. اتصالت را بررسی کن (یا VPN را امتحان کن) و دوباره بزن.':(err.message||'خطا در جست‌وجو'));return;
+  }
+  found=interleave(ok);renderResults();
+  const notes=[];if(usedFallback)notes.push('TMDB در دسترس نبود؛ از منبع جایگزین استفاده شد');if(bad.length)notes.push('بعضی منابع پاسخ ندادند');
+  setStatus(found.length?`${found.length} نتیجه پیدا شد. روی اثر بزن تا اضافه شود.`+(notes.length?' ('+notes.join('؛ ')+')':''):'نتیجه‌ای پیدا نشد. املای دیگری یا اسم انگلیسی/ژاپنی را امتحان کن.'+(searchKind!=='ALL'?' (می‌توانی تب «همه» را هم امتحان کنی.)':''));
+}
+function renderResults(){
+  const added=new Set(items.map(x=>x.id));
+  $('results').innerHTML=found.map((x,i)=>`<article class="result" data-i="${i}" tabindex="0">${x.poster?`<img src="${esc(x.poster)}" alt="" loading="lazy" referrerpolicy="no-referrer">`:'<div class="poster-ph">✦</div>'}<div class="resultbody"><div class="resulttitle">${esc(x.name)}</div><div class="resultmeta">${esc(x.kind)} · ${esc(x.year||'سال نامشخص')}${x.total?' · '+x.total+' '+unitOf(x.kind):''}</div>${added.has(x.id)?'<div class="rbtn done">✓ در کتابخانه (ویرایش)</div>':'<div class="rbtn">＋ افزودن به کتابخانه</div>'}</div></article>`).join('');
+}
+function chooseResult(i){pickResult(found[i])}
+function pickResult(x){
+  if(!x)return;
+  if(items.some(a=>a.id===x.id)){editItem(x.id);return}
+  openEditor({...x,totalProgress:x.total,status:'برنامه‌ریزی‌شده',progress:0,rating:'',notes:''},'new');
+  if(x.kind==='سریال'&&(x.origin==='tmdb'||x.origin==='tvmaze'))fillTvTotal(x.externalId,x.origin);
+}
+async function fillTvTotal(ext,origin){ // تعداد قسمت‌های سریال در نتیجه جست‌وجو نیست؛ جدا می‌گیریم
+  try{let n=0;
+    if(origin==='tmdb')n=(await tmdbGet('tv/'+ext,'language=fa-IR')).number_of_episodes;
+    else{const r=await fetch('https://api.tvmaze.com/shows/'+ext+'/episodes');if(r.ok)n=(await r.json()).length}
+    if(n&&editing&&editing.externalId===ext&&!$('totalProgress').value)$('totalProgress').value=n}catch{}
+}
+
+/* ───────── ویرایشگر ───────── */
+let editing=null;
+function fillStatus(cur){
+  const kind=$('kind').value;$('status').innerHTML=STATUSES.map(s=>`<option value="${s}">${statusLabel(s,kind)}</option>`).join('');
+  $('status').value=STATUSES.includes(cur)?cur:'برنامه‌ریزی‌شده';
+}
+function syncKindUI(){
+  const k=$('kind').value;$('progressRow').classList.toggle('hidden',k==='فیلم');$('progressLabel').textContent=unitOf(k)+' فعلی';
+  fillStatus($('status').value);
+}
+$('kind').onchange=syncKindUI;
+function openEditor(x,mode){
+  editing={mode,id:x.id||'',externalId:x.externalId||'',origin:x.origin||'manual',alt:x.alt||'',description:x.description||'',genres:x.genres||[],created:x.created||0};
+  $('editHeading').textContent=mode==='edit'?'ویرایش اثر':'افزودن به کتابخانه';
+  $('name').value=x.name||'';$('kind').value=x.kind||'انیمه';fillStatus(x.status);syncKindUI();$('status').value=STATUSES.includes(x.status)?x.status:'برنامه‌ریزی‌شده';
+  $('progress').value=x.progress||0;$('totalProgress').value=x.totalProgress||'';$('rating').value=x.rating??'';$('year').value=x.year||'';$('notes').value=x.notes||'';
+  $('posterUrl').value=x.poster||'';$('edPoster').innerHTML=posterHTML(x.poster,x.name);
+  $('genres').innerHTML=(x.genres||[]).map(g=>`<span class="tag">${esc(g)}</span>`).join('');$('descBox').textContent=x.description||'';
+  $('aboutBox').classList.toggle('hidden',!(x.description||(x.genres||[]).length));$('aboutBox').open=false;
+  $('deleteBtn').classList.toggle('hidden',mode!=='edit');
+  $('editor').showModal();
+  if(mode==='manual'||mode==='new')setTimeout(()=>mode==='manual'&&$('name').focus(),50);
+}
+function editItem(id){const x=items.find(a=>a.id===id);if(x)openEditor(x,'edit')}
+$('manualAdd').onclick=()=>openEditor({kind:libKind!=='همه'?libKind:'انیمه',origin:'manual'},'manual');
+$('editClose').onclick=()=>$('editor').close();
+
+/* قوانین خودکار: به تعداد کل رسید → تکمیل‌شده. وضعیت «تکمیل‌شده» → پیشرفت = کل. پیشرفت > ۰ → در حال تماشا */
+function applyRules(x,{userSetStatus}={}){
+  if(x.kind==='فیلم'){x.progress=0;x.totalProgress=0;return x}
+  if(x.totalProgress&&x.progress>x.totalProgress)x.progress=x.totalProgress;
+  if(x.status==='تکمیل‌شده'&&x.totalProgress)x.progress=x.totalProgress;
+  else if(x.totalProgress&&x.progress>=x.totalProgress&&['برنامه‌ریزی‌شده','در حال تماشا'].includes(x.status))x.status='تکمیل‌شده';
+  else if(x.status==='برنامه‌ریزی‌شده'&&x.progress>0)x.status='در حال تماشا';
+  return x;
+}
+$('editForm').onsubmit=e=>{
+  e.preventDefault();
+  const name=$('name').value.trim();if(!name){toast('اسم اثر را وارد کن.');$('name').focus();return}
+  const kind=$('kind').value;
+  const r=$('rating').value.trim();
+  const old=items.find(a=>a.id===editing.id);
+  const id=editing.id||(editing.origin==='manual'?uid():itemId(editing.origin,kind,editing.externalId));
+  const x=applyRules({id,externalId:editing.externalId,origin:editing.origin,name,alt:editing.alt,kind,status:$('status').value,
+    progress:posInt($('progress').value),totalProgress:posInt($('totalProgress').value),
+    rating:r!==''&&Number.isFinite(Number(r))?Math.min(10,Math.max(0,Number(r))):'',
+    year:$('year').value.trim(),poster:cleanUrl($('posterUrl').value),description:editing.description,genres:editing.genres,
+    notes:$('notes').value,updated:Date.now(),created:old?.created||editing.created||Date.now()});
+  if(old)items=items.map(a=>a.id===id?x:a);else items.push(x);
+  commit();$('editor').close();toast(old?'تغییرات ذخیره شد.':'به کتابخانه اضافه شد ✓');
+};
+$('deleteBtn').onclick=async()=>{
+  const id=editing?.id,idx=items.findIndex(x=>x.id===id);if(idx<0)return;
+  const removed=items[idx];items=items.filter(x=>x.id!==id);commit();$('editor').close();
+  toast('«'+removed.name+'» حذف شد.',6000,{label:'بازگردانی',fn:()=>{items.push(removed);commit()}});
+};
+function bump(id){
+  const x=items.find(a=>a.id===id);if(!x)return;
+  x.progress+=1;x.updated=Date.now();applyRules(x);commit();
+  toast(x.status==='تکمیل‌شده'?`«${x.name}» تکمیل شد 🎉`:`${unitOf(x.kind)} ${x.progress} ثبت شد.`,4500,{label:'لغو',fn:()=>{x.progress=Math.max(0,x.progress-1);if(x.status==='تکمیل‌شده')x.status='در حال تماشا';commit()}});
+}
+
+/* ───────── تنظیمات: توکن ───────── */
+$('toggleToken').onclick=()=>{const i=$('tmdbToken');const h=i.type==='password';i.type=h?'text':'password';$('toggleToken').textContent=h?'مخفی':'نمایش'};
+$('saveToken').onclick=()=>{const t=$('tmdbToken').value.trim();if(t)lsSet(TOKEN,t);else lsDel(TOKEN);$('tokenStatus').textContent=t?'ذخیره شد. می‌توانی «تست اتصال» را بزنی.':'توکن خالی بود و پاک شد.';toast(t?'توکن ذخیره شد.':'توکن پاک شد.')};
+$('clearToken').onclick=()=>{lsDel(TOKEN);$('tmdbToken').value='';$('tokenStatus').textContent='';toast('توکن پاک شد.')};
+$('testToken').onclick=async()=>{
+  const t=$('tmdbToken').value.trim();if(t)lsSet(TOKEN,t);
+  if(!tmdbAuth()){$('tokenStatus').textContent='اول توکن را وارد کن.';return}
+  $('tokenStatus').textContent='در حال تست…';
+  try{await tmdbGet('configuration','');$('tokenStatus').textContent='✓ اتصال به TMDB موفق بود. جست‌وجوی فیلم و سریال فعال است.'}
+  catch(e){$('tokenStatus').textContent=(!navigator.onLine||e instanceof TypeError)?'اینترنت در دسترس نیست.':e.message}
+};
+
+/* ───────── پشتیبان‌گیری ───────── */
+$('exportBtn').onclick=()=>{
+  if(!items.length){toast('آرشیو خالی است.');return}
+  const blob=new Blob([JSON.stringify(items,null,2)],{type:'application/json'}),a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);a.download='otaku-archive-backup-'+new Date().toISOString().slice(0,10)+'.json';
+  document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),2000);
+  lsSet(BK,String(Date.now()));renderBanner();renderStorageInfo();toast('فایل پشتیبان ساخته شد.');
+};
+$('importBtn').onclick=()=>$('importFile').click();
+$('importFile').onchange=async e=>{
+  const f=e.target.files[0];e.target.value='';if(!f)return;
+  let data;try{data=JSON.parse(await f.text())}catch{toast('فایل پشتیبان معتبر نیست (JSON خراب است).');return}
+  const arr=Array.isArray(data)?data:(Array.isArray(data?.items)?data.items:null);
+  if(!arr){toast('این فایل فرمت پشتیبان Otaku Archive را ندارد.');return}
+  const clean=dedupe(arr.map(sanitize).filter(Boolean)),skipped=arr.length-clean.length;
+  if(!clean.length){toast('هیچ اثر معتبری در فایل پیدا نشد.');return}
+  const choice=await ask('بازیابی پشتیبان',`${clean.length} اثر در فایل پیدا شد${skipped?` (${skipped} مورد نامعتبر نادیده گرفته می‌شود)`:''}. آرشیو فعلی تو ${items.length} اثر دارد.`,[
+    {label:'ترکیب با آرشیو فعلی (پیشنهادی)',value:'merge'},{label:'جایگزینی کامل آرشیو فعلی',value:'replace',cls:'alt'},{label:'انصراف',value:'',cls:'alt'}]);
+  if(!choice)return;
+  await snapshotCurrent('قبل از بازیابی فایل');
+  const before=items;
+  items=choice==='merge'?dedupe([...items,...clean]):clean;
+  commit();
+  toast('بازیابی انجام شد: '+items.length+' اثر.',7000,{label:'بازگردانی',fn:()=>{items=before;commit()}});
+};
+$('snapNow').onclick=async()=>{if(!db){toast('نسخه‌گیری فقط با ذخیره‌سازی جدید کار می‌کند.');return}if(!items.length){toast('آرشیو خالی است.');return}await snapshotCurrent('نسخه دستی');renderSnaps();toast('نسخه ساخته شد.')};
+$('wipeBtn').onclick=async()=>{
+  if(!items.length){toast('آرشیو خالی است.');return}
+  const c=await ask('پاک کردن کل آرشیو',`${items.length} اثر برای همیشه پاک می‌شود. اگر پشتیبان نداری اول خروجی JSON بگیر.`,[{label:'اول خروجی می‌گیرم',value:'',cls:'alt'},{label:'پاک کن',value:'wipe',cls:'danger'}]);
+  if(c==='wipe'){await snapshotCurrent('قبل از پاک کردن کل آرشیو');const before=items;items=[];commit();toast('آرشیو پاک شد.',7000,{label:'بازگردانی',fn:()=>{items=before;commit()}})}
+};
+
+/* ───────── نصب PWA ───────── */
+let deferred=null;
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferred=e;$('installBtn').classList.remove('hidden')});
+$('installBtn').onclick=async()=>{if(!deferred)return;deferred.prompt();await deferred.userChoice;deferred=null;$('installBtn').classList.add('hidden')};
+window.addEventListener('appinstalled',()=>{$('installBtn').classList.add('hidden');$('installHint').textContent='برنامه نصب شد ✓'});
+
+/* ───────── پیشنهادها ───────── */
+const REC='otaku-recs',DIS='otaku-dismissed';
+const AL_FIELDS='id type seasonYear startDate{year} episodes chapters averageScore description(asHtml:false) coverImage{medium} title{romaji english native} synonyms genres';
+const AL_GENRES=['Action','Adventure','Comedy','Drama','Ecchi','Fantasy','Horror','Mahou Shoujo','Mecha','Music','Mystery','Psychological','Romance','Sci-Fi','Slice of Life','Sports','Supernatural','Thriller'];
+let recs=[],recView=[],recKind='همه',recBusy=false;
+const jget=(k,d)=>{try{return JSON.parse(lsGet(k))??d}catch{return d}};
+const dismissed=()=>new Set(jget(DIS,[]));
+function dismissRec(i){
+  const x=recView[Number(i)];if(!x)return;
+  const d=jget(DIS,[]);d.push(x.id);lsSet(DIS,JSON.stringify(d.slice(-500)));renderRecs();
+  toast('این پیشنهاد دیگر نشان داده نمی‌شود.',4000,{label:'لغو',fn:()=>{lsSet(DIS,JSON.stringify(jget(DIS,[]).filter(v=>v!==x.id)));renderRecs()}});
+}
+const alItem=m=>{const kind=m.type==='MANGA'?'مانگا':'انیمه';return {id:itemId('anilist',kind,m.id),externalId:String(m.id),origin:'anilist',kind,
+  name:m.title.english||m.title.romaji||m.title.native||'—',alt:[...new Set([m.title.romaji,m.title.native,m.title.english,...(m.synonyms||[])].filter(Boolean))].join(' | '),
+  poster:m.coverImage?.medium||'',year:String(m.startDate?.year||m.seasonYear||''),total:(kind==='انیمه'?m.episodes:m.chapters)||0,
+  description:htmlToText(m.description).slice(0,400),genres:m.genres||[],avg:m.averageScore||0}};
+async function alQuery(query,variables){
+  const res=await fetch('https://graphql.anilist.co',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({query,variables})});
+  if(!res.ok)throw Error('AniList '+res.status);const d=await res.json();if(!d.data)throw Error('AniList');return d.data;
+}
+/* اثرهایی که کاربران AniList بعد از «X» پیشنهاد داده‌اند */
+async function recFromSeeds(seeds,add){
+  const parts=seeds.map((s,i)=>`s${i}:Media(id:${Number(s.externalId)}){recommendations(perPage:8,sort:RATING_DESC){nodes{rating mediaRecommendation{${AL_FIELDS}}}}}`).join(' ');
+  const d=await alQuery('query{'+parts+'}');
+  seeds.forEach((s,i)=>(d['s'+i]?.recommendations?.nodes||[]).forEach(n=>{
+    if(!n.mediaRecommendation)return;
+    add(alItem(n.mediaRecommendation),(s.rating-5)*(1+Math.min(Math.max(n.rating||0,0),60)/60),'چون «'+s.name+'» را دوست داشتی');
+  }));
+}
+/* بهترین‌های ژانرهایی که بیشتر دوست داری */
+async function recFromGenres(genres,add){
+  const parts=genres.flatMap((g,i)=>['ANIME','MANGA'].map(t=>`g${i}${t}:Page(perPage:12){media(genre_in:["${g}"],type:${t},sort:SCORE_DESC,averageScore_greater:72){${AL_FIELDS}}}`)).join(' ');
+  const d=await alQuery('query{'+parts+'}');
+  genres.forEach((g,i)=>['ANIME','MANGA'].forEach(t=>(d['g'+i+t]?.Page?.media||[]).forEach(m=>add(alItem(m),0.8+(m.averageScore||0)/100,'ژانر موردعلاقه‌ات: '+g))));
+}
+async function recFromTMDB(seeds,add){
+  const rs=await Promise.allSettled(seeds.map(s=>tmdbGet((s.kind==='سریال'?'tv':'movie')+'/'+s.externalId+'/recommendations','language=fa-IR&page=1')));
+  let any=false;
+  rs.forEach((r,i)=>{if(r.status!=='fulfilled')return;any=true;const s=seeds[i],kind=s.kind;
+    (r.value.results||[]).slice(0,8).forEach(m=>add({id:itemId('tmdb',kind,m.id),externalId:String(m.id),origin:'tmdb',kind,name:m.title||m.name||'—',alt:[m.original_title,m.original_name].filter(Boolean).join(' | '),
+      poster:m.poster_path?'https://image.tmdb.org/t/p/w185'+m.poster_path:'',year:(m.release_date||m.first_air_date||'').slice(0,4),total:0,description:(m.overview||'').slice(0,400),genres:[],avg:Math.round((m.vote_average||0)*10)},
+      (s.rating-5)*(0.8+(m.vote_average||0)/20),'چون «'+s.name+'» را دوست داشتی'))});
+  if(!any)throw Error('TMDB');
+}
+function topGenres(rated){
+  const w=new Map();
+  rated.filter(x=>x.origin==='anilist').forEach(x=>x.genres.forEach(g=>{if(AL_GENRES.includes(g))w.set(g,(w.get(g)||0)+x.rating-5.5)}));
+  return [...w].filter(([,v])=>v>0).sort((a,b)=>b[1]-a[1]).slice(0,2).map(([g])=>g);
+}
+async function loadRecs(force){
+  if(recBusy)return;
+  const rated=items.filter(x=>x.rating!==''&&x.rating>=7).sort((a,b)=>b.rating-a.rating||b.updated-a.updated);
+  if(!rated.length){recs=[];renderRecs();return}
+  const useTmdb=!!tmdbAuth();
+  const sig=rated.slice(0,12).map(x=>x.id+':'+x.rating).join('|')+'|'+(useTmdb?1:0);
+  const c=jget(REC,null);
+  if(!force&&c&&c.sig===sig&&Date.now()-c.ts<864e5){recs=c.list;renderRecs();return}
+  recBusy=true;$('recStatus').textContent='در حال پیدا کردن پیشنهادها…';
+  const agg=new Map(),have=new Set(items.map(x=>x.id));
+  const add=(x,score,reason)=>{if(have.has(x.id))return;const o=agg.get(x.id);if(o){o.score+=score;if(o.reasons.length<2&&!o.reasons.includes(reason))o.reasons.push(reason)}else agg.set(x.id,{x,score,reasons:[reason]})};
+  const alSeeds=rated.filter(x=>x.origin==='anilist'&&/^\d+$/.test(x.externalId)).slice(0,8);
+  const tmSeeds=useTmdb?rated.filter(x=>x.origin==='tmdb'&&/^\d+$/.test(x.externalId)).slice(0,5):[];
+  const g=topGenres(rated),jobs=[];
+  if(alSeeds.length)jobs.push(recFromSeeds(alSeeds,add));
+  if(g.length)jobs.push(recFromGenres(g,add));
+  if(tmSeeds.length)jobs.push(recFromTMDB(tmSeeds,add));
+  const res=await Promise.allSettled(jobs);
+  recBusy=false;
+  if(!jobs.length){recs=[];renderRecs();return}
+  if(res.every(r=>r.status==='rejected')){$('recStatus').textContent=(!navigator.onLine||res[0].reason instanceof TypeError)?'ارتباط با اینترنت برقرار نشد. (یا VPN را امتحان کن) و دوباره بزن.':'دریافت پیشنهادها ناموفق بود. کمی بعد دوباره امتحان کن.';return}
+  recs=[...agg.values()].sort((a,b)=>b.score-a.score).slice(0,48).map(o=>({...o.x,reason:o.reasons.join(' · ')}));
+  lsSet(REC,JSON.stringify({ts:Date.now(),sig,list:recs}));
+  renderRecs();
+}
+function renderRecs(){
+  const st=$('recStatus'),grid=$('recGrid');if(!st)return;
+  const have=new Set(items.map(x=>x.id)),dis=dismissed();
+  recView=recs.filter(x=>!have.has(x.id)&&!dis.has(x.id)&&(recKind==='همه'||x.kind===recKind));
+  const rated=items.filter(x=>x.rating!==''&&x.rating>=7).length;
+  if(!rated){st.textContent='';grid.innerHTML='<div class="empty" style="grid-column:1/-1"><b>هنوز چیزی برای پیشنهاد نداریم</b>به چند اثر در کتابخانه‌ات امتیاز ۷ یا بالاتر بده تا بر اساس سلیقه‌ات پیشنهاد بدهیم.</div>';return}
+  if(!recBusy){
+    st.textContent=recView.length?`${recView.length} پیشنهاد`+(tmdbAuth()?'':' — پیشنهاد فیلم و سریال فقط با توکن TMDB فعال است.'):(recBusy?'':'پیشنهادی برای این فیلتر پیدا نشد. فیلتر دیگری را امتحان کن یا بروزرسانی بزن.'+(tmdbAuth()?'':' (پیشنهاد فیلم و سریال فقط با توکن TMDB فعال است.)'))}
+  grid.innerHTML=recView.map((x,i)=>`<article class="result" data-r="${i}" tabindex="0"><button class="xbtn" data-act="hide" type="button" aria-label="نمایش نده">✕</button>${x.poster?`<img src="${esc(x.poster)}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer">`:'<div class="poster-ph">✦</div>'}<div class="resultbody"><div class="resulttitle">${esc(x.name)}</div><div class="resultmeta">${esc(x.kind)} · ${esc(x.year||'سال نامشخص')}${x.avg?' · ★ '+(x.avg/10).toFixed(1):''}</div><div class="reason">${esc(x.reason||'')}</div><div class="rbtn">＋ افزودن به کتابخانه</div></div></article>`).join('');
+}
+bindRecChips();
+function bindRecChips(){document.querySelectorAll('#recKinds button').forEach(b=>b.onclick=()=>{recKind=b.dataset.kind;document.querySelectorAll('#recKinds button').forEach(x=>x.classList.toggle('active',x===b));renderRecs()})}
+$('recRefresh').onclick=()=>loadRecs(true);
+
+/* ───────── همگام‌سازی با Google Drive (پوشه مخفی appDataFolder، فقط مجوز drive.appdata) ───────── */
+const SYNC='otaku-sync',SCOPE='https://www.googleapis.com/auth/drive.appdata',REMOTE_FILE='otaku-archive.json';
+const DRIVE='https://www.googleapis.com/drive/v3',UPLOAD='https://www.googleapis.com/upload/drive/v3';
+let sync=jget(SYNC,{});if(!sync||typeof sync!=='object'||Array.isArray(sync))sync={};
+if(!sync.base||typeof sync.base!=='object')sync.base={};
+const saveSync=()=>{if(!lsSet(SYNC,JSON.stringify(sync)))storageFail()};
+const clientId=()=>String(window.OTAKU_CONFIG?.GOOGLE_CLIENT_ID||lsGet('otaku-gclient')||'').trim();
+let gtoken=null,gexp=0,lastSilent=0,syncState='idle',syncMsg='',conflicts=[],syncTimer=null,syncBusy=false,syncApplying=false;
+
+/* هش محتوای هر اثر (بدون زمان تغییر) برای تشخیص تغییر واقعی */
+function hashStr(s){let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)}return (h>>>0).toString(36)+s.length.toString(36)}
+const ihash=x=>{const {updated,...r}=x;return hashStr(JSON.stringify(r))};
+
+/* ادغام سه‌طرفه: محلی (L)، ابری (R)، و آخرین وضعیت همگام (base). هیچ‌چیز بدون تصمیم کاربر روی تعارض بازنویسی نمی‌شود. */
+function mergeSync(L,R,base){
+  const lm=new Map(L.map(x=>[x.id,x])),rm=new Map(R.map(x=>[x.id,x]));
+  const out={toLocal:[],delLocal:[],toRemote:[],delRemote:[],conflicts:[],base:{}};
+  const ids=new Set([...lm.keys(),...rm.keys(),...Object.keys(base)]);
+  for(const id of ids){
+    const l=lm.get(id),r=rm.get(id),lh=l?ihash(l):null,rh=r?ihash(r):null;
+    const bh=Object.prototype.hasOwnProperty.call(base,id)?base[id]:undefined;
+    if(lh===rh){if(lh!==null)out.base[id]=lh;continue}
+    let act;
+    if(bh===undefined)act=(l&&!r)?'push':(!l&&r)?'pull':'conflict';
+    else{const lc=lh!==bh,rc=rh!==bh;act=lc&&!rc?'push':(!lc&&rc)?'pull':'conflict'}
+    if(act==='push'){if(l){out.toRemote.push(l);out.base[id]=lh}else out.delRemote.push(id)}
+    else if(act==='pull'){if(r){out.toLocal.push(r);out.base[id]=rh}else out.delLocal.push(id)}
+    else{out.conflicts.push({id,local:l||null,remote:r||null});if(bh!==undefined)out.base[id]=bh}
+  }
+  return out;
+}
+
+/* ورود با گوگل (Google Identity Services — بدون رمز و بدون کلید محرمانه؛ توکن فقط در حافظه می‌ماند) */
+function gisLoad(){return window.google?.accounts?.oauth2?Promise.resolve():new Promise((res,rej)=>{
+  const s=document.createElement('script');s.src='https://accounts.google.com/gsi/client';s.async=true;
+  const t=setTimeout(()=>rej(Error('GIS_TIMEOUT')),12000);
+  s.onload=()=>{clearTimeout(t);res()};s.onerror=()=>{clearTimeout(t);rej(Error('GIS_BLOCKED'))};document.head.append(s)})}
+function requestToken(prompt){return new Promise(async(res,rej)=>{
+  try{await gisLoad()}catch(e){return rej(e)}
+  const t=setTimeout(()=>rej(Error('TOKEN_TIMEOUT')),prompt==='none'?10000:120000);
+  try{
+    google.accounts.oauth2.initTokenClient({client_id:clientId(),scope:SCOPE,
+      callback:r=>{clearTimeout(t);
+        if(r.error)return rej(Error(r.error));
+        if(google.accounts.oauth2.hasGrantedAllScopes&&!google.accounts.oauth2.hasGrantedAllScopes(r,SCOPE))return rej(Error('SCOPE_DENIED'));
+        gtoken=r.access_token;gexp=Date.now()+(Number(r.expires_in||3600)-120)*1000;res(gtoken)},
+      error_callback:e=>{clearTimeout(t);rej(Error(e?.type||'popup_failed'))}}).requestAccessToken({prompt});
+  }catch(e){clearTimeout(t);rej(e)}})}
+async function ensureToken(interactive){
+  if(gtoken&&Date.now()<gexp)return gtoken;
+  if(interactive)return requestToken('');
+  if(Date.now()-lastSilent<300000)throw Error('NEED_AUTH');   // هر ۵ دقیقه حداکثر یک تلاش بی‌صدا
+  lastSilent=Date.now();
+  try{return await requestToken('none')}catch{throw Error('NEED_AUTH')}
+}
+async function dfetch(url,opts={},retry=true){
+  const t=await ensureToken(false);
+  const res=await fetch(url,{...opts,headers:{...(opts.headers||{}),Authorization:'Bearer '+t}});
+  if(res.status===401&&retry){gtoken=null;lastSilent=0;return dfetch(url,opts,false)}
+  if(!res.ok){const e=Error('DRIVE_'+res.status);e.status=res.status;throw e}
+  return res;
+}
+async function findRemote(){
+  if(sync.fileId){
+    try{return await (await dfetch(`${DRIVE}/files/${sync.fileId}?fields=id,version,modifiedTime`)).json()}
+    catch(e){if(e.status!==404)throw e;sync.fileId=''}
+  }
+  const q=encodeURIComponent(`name='${REMOTE_FILE}' and trashed=false`);
+  const r=await (await dfetch(`${DRIVE}/files?spaces=appDataFolder&q=${q}&fields=files(id,version,modifiedTime)&pageSize=10&orderBy=${encodeURIComponent('modifiedTime desc')}`)).json();
+  const f=r.files?.[0];if(f)sync.fileId=f.id;return f||null;
+}
+async function readRemote(id){
+  const txt=await (await dfetch(`${DRIVE}/files/${id}?alt=media`)).text();
+  let d;try{d=JSON.parse(txt)}catch{throw Error('REMOTE_CORRUPT')}
+  const arr=Array.isArray(d)?d:d?.items;if(!Array.isArray(arr))throw Error('REMOTE_CORRUPT');
+  return dedupe(arr.map(sanitize).filter(Boolean));
+}
+const remoteDoc=list=>JSON.stringify({v:1,app:'otaku-archive',updated:Date.now(),items:list});
+async function createRemote(list){
+  const b='otakuboundary'+Date.now();
+  const body=`--${b}\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n${JSON.stringify({name:REMOTE_FILE,parents:['appDataFolder']})}\r\n--${b}\r\nContent-Type: application/json\r\n\r\n${remoteDoc(list)}\r\n--${b}--`;
+  return (await dfetch(`${UPLOAD}/files?uploadType=multipart&fields=id,version`,{method:'POST',headers:{'Content-Type':'multipart/related; boundary='+b},body})).json();
+}
+const writeRemote=(id,list)=>dfetch(`${UPLOAD}/files/${id}?uploadType=media`,{method:'PATCH',headers:{'Content-Type':'application/json'},body:remoteDoc(list)});
+
+function applyLocal(m){
+  const mp=new Map(items.map(x=>[x.id,x]));m.toLocal.forEach(x=>mp.set(x.id,x));m.delLocal.forEach(id=>mp.delete(id));
+  items=[...mp.values()];syncApplying=true;try{commit()}finally{syncApplying=false}
+}
+async function runSync(){
+  if(!sync.on||syncBusy)return;
+  if(!navigator.onLine){setSyncState('offline');return}
+  syncBusy=true;setSyncState('syncing');
+  try{
+    let done=false;
+    for(let attempt=0;attempt<4&&!done;attempt++){
+      flush();
+      const meta=await findRemote();
+      let remote=[];
+      if(meta)remote=await readRemote(meta.id);else sync.base={};   // فایل ابری نیست → از نو؛ هرگز به‌خاطرش چیزی محلی پاک نشود
+      let m=mergeSync(items,remote,sync.base);
+      if(m.delLocal.length>=10&&m.delLocal.length>items.length/2){
+        const c=await ask('حذف گروهی از Drive',`در نسخه Drive ${m.delLocal.length} اثر از ${items.length} اثر این دستگاه وجود ندارد. روی این دستگاه هم حذف شوند؟ (قبلش نسخه امن گرفته می‌شود)`,[{label:'بله، حذف شوند',value:'ok',cls:'danger'},{label:'نه، همه را نگه دار و به Drive برگردان',value:'',cls:'alt'}]);
+        if(c!=='ok'){sync.base={};m=mergeSync(items,remote,{})}
+      }
+      if(m.delRemote.length>=10&&m.delRemote.length>remote.length/2){
+        const c=await ask('حذف گروهی از Drive',`این دستگاه ${m.delRemote.length} اثر از ${remote.length} اثر موجود در Drive را حذف کرده است. از Drive هم حذف شوند؟`,[{label:'بله، از Drive هم حذف شوند',value:'ok',cls:'danger'},{label:'نه، از Drive برگردان',value:'',cls:'alt'}]);
+        if(c!=='ok'){sync.base={};m=mergeSync(items,remote,{})}
+      }
+      if(m.toLocal.length||m.delLocal.length){await snapshotCurrent('قبل از همگام‌سازی');applyLocal(m)}
+      if(!meta||m.toRemote.length||m.delRemote.length){
+        const mp=new Map(remote.map(x=>[x.id,x]));m.toRemote.forEach(x=>mp.set(x.id,x));m.delRemote.forEach(id=>mp.delete(id));
+        const list=[...mp.values()];
+        if(meta){
+          const cur=await findRemote();
+          if(cur&&cur.version!==meta.version)continue;           // هم‌زمان از جای دیگر تغییر کرد → دوباره ادغام
+          await writeRemote(meta.id,list);
+        }else sync.fileId=(await createRemote(list)).id;
+      }
+      sync.base=m.base;sync.last=Date.now();conflicts=m.conflicts;saveSync();done=true;
+    }
+    if(!done){setSyncState('error','هم‌زمان از جای دیگری هم تغییر کرد؛ کمی بعد دوباره امتحان می‌شود.');syncSoon(20000);return}
+    setSyncState(conflicts.length?'conflict':'ok');
+  }catch(e){
+    const msg=String(e.message||e);
+    if(msg==='NEED_AUTH'||e.status===401)setSyncState('auth');
+    else if(msg==='REMOTE_CORRUPT')setSyncState('error','فایل ابری خراب است؛ برای محافظت از داده‌ها چیزی بازنویسی نشد.');
+    else if(!navigator.onLine||e instanceof TypeError)setSyncState('offline');
+    else setSyncState('error','خطا در همگام‌سازی ('+msg+'). بعداً دوباره امتحان می‌شود.');
+  }finally{syncBusy=false}
+}
+function syncSoon(ms=6000){
+  if(!sync.on||syncApplying)return;
+  clearTimeout(syncTimer);syncTimer=setTimeout(()=>runSync(),ms);
+  if(syncState==='ok')setSyncState('pending');
+}
+addEventListener('online',()=>syncSoon(800));
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&sync.on&&Date.now()-(sync.last||0)>60000)syncSoon(800)});
+
+async function connectDrive(){
+  if(!clientId()){toast('شناسه Google هنوز تنظیم نشده است.');return}
+  setSyncState('syncing');
+  try{await requestToken('')}
+  catch(e){
+    const m=String(e.message);
+    setSyncState(sync.on?'auth':'idle',m==='GIS_BLOCKED'||m==='GIS_TIMEOUT'?'Google در دسترس نیست (VPN یا اینترنت را بررسی کن).':m==='SCOPE_DENIED'?'برای همگام‌سازی باید مجوز «پوشه برنامه در Drive» را تأیید کنی.':'اتصال انجام نشد ('+m+').');return;
+  }
+  sync.on=true;saveSync();
+  try{const u=await (await dfetch(`${DRIVE}/about?fields=user(emailAddress)`)).json();if(u?.user?.emailAddress){sync.email=u.user.emailAddress;saveSync()}}catch{}
+  runSync();
+}
+async function disconnectDrive(){
+  const c=await ask('قطع اتصال Google Drive','داده‌های روی این دستگاه می‌مانند. نسخه ابری هم در Drive خودت می‌ماند (می‌توانی جداگانه حذفش کنی). دسترسی برنامه لغو می‌شود.',[{label:'قطع اتصال',value:'ok',cls:'danger'},{label:'انصراف',value:'',cls:'alt'}]);
+  if(c!=='ok')return;
+  try{if(gtoken&&window.google?.accounts?.oauth2?.revoke)google.accounts.oauth2.revoke(gtoken,()=>{})}catch{}
+  gtoken=null;sync={on:false,base:{}};saveSync();conflicts=[];clearTimeout(syncTimer);setSyncState('idle');toast('اتصال قطع شد.');
+}
+async function deleteRemoteCopy(){
+  const c=await ask('حذف نسخه ابری','فایل آرشیو از Drive تو حذف می‌شود (داده‌های همین دستگاه می‌مانند). با همگام‌سازی بعدی دوباره ساخته می‌شود.',[{label:'حذف نسخه ابری',value:'ok',cls:'danger'},{label:'انصراف',value:'',cls:'alt'}]);
+  if(c!=='ok')return;
+  try{const f=await findRemote();if(f)await dfetch(`${DRIVE}/files/${f.id}`,{method:'DELETE'});sync.fileId='';sync.base={};sync.last=0;saveSync();toast('نسخه ابری حذف شد.');setSyncState('idle');syncSoon(500)}
+  catch(e){toast(e.message==='NEED_AUTH'?'اول «اتصال مجدد» را بزن.':'حذف انجام نشد.')}
+}
+
+/* ───────── نمایش وضعیت همگام‌سازی ───────── */
+function setSyncState(st,msg=''){syncState=st;syncMsg=msg;renderSync()}
+function syncSummary(x){return x?`${statusLabel(x.status,x.kind)}${x.kind!=='فیلم'&&x.progress?' · '+unitOf(x.kind)+' '+x.progress+(x.totalProgress?'/'+x.totalProgress:''):''}${x.rating!==''?' · ★'+x.rating:''}${x.notes?' · یادداشت':''} · ${fmtDate(x.updated)}`:'حذف‌شده';}
+function renderSync(){
+  const av=$('avatar'),box=$('syncBox'),ban=$('syncBanner');if(!av||!box||!ban)return;
+  const on=!!sync.on,st=syncState;
+  av.classList.toggle('busy',on&&st==='syncing');av.classList.toggle('warn',on&&(st==='auth'||st==='error'||st==='conflict'));
+  av.textContent=!on?'✦':st==='syncing'?'⟳':st==='ok'?'☁':st==='pending'?'☁…':st==='offline'?'☁⏸':'⚠';
+  av.title=!on?'':({ok:'همگام است',pending:'تغییرات در انتظار همگام‌سازی',syncing:'در حال همگام‌سازی',offline:'آفلاین؛ تغییرات در صف',auth:'نیاز به اتصال مجدد',error:'خطا',conflict:'تعارض نیاز به تصمیم دارد',idle:''})[st]||'';
+  // بنر خانه
+  let b='';
+  if(on&&st==='conflict'&&conflicts.length)b=`${conflicts.length} اثر بین دو دستگاه تعارض دارد. <button class="btn sm" data-sync="conflicts" style="margin-right:6px">بررسی</button>`;
+  else if(on&&st==='auth')b='اتصال به Google Drive قطع شده؛ تغییرات روی این دستگاه ذخیره می‌شوند. <button class="btn sm" data-sync="connect" style="margin-right:6px">اتصال مجدد</button>';
+  ban.innerHTML=b;ban.classList.toggle('hidden',!b);
+  // پنل تنظیمات
+  const last=sync.last?fmtDate(sync.last):'هنوز انجام نشده';
+  const lines={ok:'✓ همگام است',pending:'تغییرات به‌زودی همگام می‌شوند…',syncing:'در حال همگام‌سازی…',offline:'آفلاین هستی؛ تغییرات ذخیره می‌شوند و با اتصال اینترنت همگام می‌شوند.',auth:'⚠ دسترسی منقضی شده؛ «اتصال مجدد» را بزن. (تا آن موقع برنامه محلی کار می‌کند.)',error:'⚠ '+syncMsg,conflict:`⚠ ${conflicts.length} تعارض نیاز به تصمیم دارد.`,idle:''};
+  let h='<div class="muted">همگام‌سازی ابری (Google Drive)</div><p class="smallnote">آرشیو تو در یک پوشه <b>مخفی مخصوص این برنامه</b> در Google Drive خودت ذخیره می‌شود. هیچ‌کس (حتی سازنده برنامه) به آن دسترسی ندارد و برنامه به بقیه فایل‌های Drive تو دسترسی نمی‌گیرد. هر کاربر فضای مستقل خودش را دارد.</p>';
+  if(!clientId()){h+='<div class="notice">همگام‌سازی هنوز راه‌اندازی نشده است: مدیر باید «Google Client ID» را در فایل <b>config.js</b> بگذارد (راهنما در GUIDE-fa.md).</div><details><summary>پیشرفته: وارد کردن Client ID به‌صورت محلی</summary><input id="gclient" placeholder="xxxx.apps.googleusercontent.com" style="margin-top:8px"><div class="actions"><button class="btn alt sm" data-sync="saveclient" type="button">ذخیره</button></div></details>'}
+  else if(!on){h+=`<div class="actions"><button class="btn" data-sync="connect" type="button">اتصال به Google Drive</button></div>`+(syncMsg?`<div class="smallnote" style="color:var(--red)">${esc(syncMsg)}</div>`:'')}
+  else{h+=`<div class="smallnote" style="margin:6px 0">${esc(lines[st]||'')}<br>${sync.email?esc(sync.email)+' · ':''}آخرین همگام‌سازی: ${esc(last)}</div><div class="actions"><button class="btn" data-sync="now" type="button">همگام‌سازی الان</button>${st==='auth'?'<button class="btn alt" data-sync="connect" type="button">اتصال مجدد</button>':''}${conflicts.length?'<button class="btn alt" data-sync="conflicts" type="button">بررسی تعارض‌ها</button>':''}</div><div class="actions"><button class="btn danger" data-sync="disconnect" type="button">قطع اتصال</button><button class="btn danger" data-sync="deleteremote" type="button">حذف نسخه ابری</button></div>`}
+  box.innerHTML=h;
+}
+function renderConflicts(){
+  const l=$('cfList');
+  l.innerHTML=conflicts.map(c=>`<div class="cfrow"><b>${esc((c.local||c.remote).name)}</b><div class="muted">این دستگاه: ${esc(syncSummary(c.local))}</div><div class="muted">Drive: ${esc(syncSummary(c.remote))}</div><div class="two"><button class="btn alt sm" type="button" data-cf="local" data-id="${esc(c.id)}">نگه‌داشتن این دستگاه</button><button class="btn alt sm" type="button" data-cf="remote" data-id="${esc(c.id)}">نسخه Drive</button></div></div>`).join('');
+  if(!conflicts.length&&$('conflictDlg').open)$('conflictDlg').close();
+}
+function resolveConflict(id,side){
+  const c=conflicts.find(x=>x.id===id);if(!c)return;
+  const lh=c.local?ihash(c.local):null,rh=c.remote?ihash(c.remote):null;
+  const to=side==='local'?rh:lh;
+  if(to===null)delete sync.base[id];else sync.base[id]=to;   // انتخاب کاربر: طرف انتخاب‌نشده «تغییر کرده» حساب می‌شود
+  conflicts=conflicts.filter(x=>x.id!==id);
+}
+function resolveAll(side){[...conflicts].forEach(c=>resolveConflict(c.id,side));afterResolve()}
+function afterResolve(){saveSync();renderConflicts();renderSync();if(!conflicts.length)runSync()}
+$('cfClose').onclick=()=>$('conflictDlg').close();
+$('cfAllLocal').onclick=()=>resolveAll('local');$('cfAllRemote').onclick=()=>resolveAll('remote');
+document.addEventListener('click',e=>{
+  const cf=e.target.closest('[data-cf]');if(cf){resolveConflict(cf.dataset.id,cf.dataset.cf);afterResolve();return}
+  const a=e.target.closest('[data-sync]');if(!a)return;
+  const act=a.dataset.sync;
+  if(act==='connect')connectDrive();
+  else if(act==='now'){clearTimeout(syncTimer);if(!gtoken)connectDrive();else runSync()}
+  else if(act==='disconnect')disconnectDrive();
+  else if(act==='deleteremote')deleteRemoteCopy();
+  else if(act==='conflicts'){renderConflicts();$('conflictDlg').showModal()}
+  else if(act==='saveclient'){const v=$('gclient')?.value.trim();if(v){lsSet('otaku-gclient',v);toast('ذخیره شد.');renderSync()}}
+});
+
+/* ───────── شروع ───────── */
+if('serviceWorker' in navigator&&location.protocol!=='file:')window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+(async function boot(){
+  items=await loadItems();
+  persist(); // ذخیره دوباره: مهاجرت شناسه‌های قدیمی و پاک‌سازی داده‌ها
+  show(location.hash.slice(1));
+  requestPersist();
+  if(sync.on)syncSoon(1500);
+})();
+</script>
+</body>
+</html>
